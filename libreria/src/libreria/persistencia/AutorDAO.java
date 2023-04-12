@@ -73,7 +73,21 @@ public class AutorDAO extends DAO<Autor> {
         super.editar(autor);
         return autor;
     }
-
+    public Autor  repetirAutor(String nom) {
+        Autor autores = new Autor();
+        conectar();
+        try{
+         autores = (Autor) em.createQuery("SELECT a FROM Autor a WHERE a.nombre LIKE :nombre")
+                .setParameter("nombre", nom).getSingleResult();
+         return autores;
+        }catch(Exception e){
+             desconectar();
+           
+             return autores  = new Autor();
+        }
+       
+       
+    }
     public Collection<Autor> buscarPorNombre(String nom) {
         conectar();
         List<Autor> autores = (List<Autor>) em.createQuery("SELECT a FROM Autor a WHERE a.nombre LIKE :nombre")

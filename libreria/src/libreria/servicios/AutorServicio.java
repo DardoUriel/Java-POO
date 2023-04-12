@@ -58,8 +58,15 @@ public class AutorServicio {
         System.out.println("Nombre del Autor: ");
         autor.setNombre(Libreria.l.next());
         autor.setAlta(true);
-        dao.guardar(autor);
-        System.out.println("Autor creado: " + autor);
+        Autor autorvalidacion = dao.repetirAutor(autor.getNombre());
+        if (autor.getNombre().equalsIgnoreCase(autorvalidacion.getNombre())) {
+            System.out.println("el autor con nombre "+ autor.getNombre()+" ya existe");
+        } else {
+           dao.guardar(autor); 
+         System.out.println("Autor creado: " + autor);
+        }
+        
+
     }
 
     public void listarAutores() {
