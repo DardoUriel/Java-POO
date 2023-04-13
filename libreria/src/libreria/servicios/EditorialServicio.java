@@ -60,8 +60,16 @@ public class EditorialServicio {
         System.out.print("Nombre de la Editorial: ");
         editorial1.setNombre(libreria.Libreria.l.next());
         editorial1.setAlta(true);
-        dao.guardar(editorial1);
-        System.out.println("Editorial creada : "+ editorial1);
+        Editorial editorialConfirmacion = dao.repetirEditorial(editorial1.getNombre());
+        if (editorial1.getNombre().equalsIgnoreCase(editorialConfirmacion.getNombre())) {
+            System.out.println("ya existe una editorial con el nombre "+editorial1.getNombre());
+        } else {
+            dao.guardar(editorial1);
+            System.out.println("Editorial creada : "+ editorial1);
+        }
+        
+        
+        
     }
 
     public void listarEditoriales() {

@@ -60,5 +60,17 @@ public class EditorialDAO extends DAO<Editorial> {
         super.editar(editorialM);
         return editorialM;            
     }
-   
+    /*validacion para no repetir autores*/
+    public Editorial repetirEditorial(String nombre){
+        Editorial editorialEncontrada = new Editorial();
+        conectar();
+        try {
+             editorialEncontrada = (Editorial) em.createQuery("SELECT e FROM Editorial e WHERE e.nombre LIKE :nombre")
+            .setParameter("nombre", nombre).getSingleResult();
+            return editorialEncontrada;
+        } catch (Exception e) {
+           
+            return editorialEncontrada = new Editorial();                   
+        }
+    }
 }

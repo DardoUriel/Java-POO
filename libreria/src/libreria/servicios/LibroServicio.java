@@ -112,7 +112,14 @@ public class LibroServicio {
         System.out.println("SELECCIONAR EDITORIAL");
         es.listarEditoriales();
         libro.setEditorial(es.buscarPorId(libreria.Libreria.l.nextInt()));
-        dao.guardar(libro);
+        Libro libroValidacion = dao.libroRepetido(libro.getTitulo());
+        if (libro.getTitulo().equalsIgnoreCase(libroValidacion.getTitulo())) {
+            System.out.println("ya existe un libro con el titulo "+ libro.getTitulo());
+        }else{
+             dao.guardar(libro);
+             System.out.println( libro.getTitulo()+ " guardado");
+        }
+        
 
     }
 

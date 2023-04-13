@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import libreria.entidades.Autor;
 import libreria.entidades.Editorial;
 import libreria.entidades.Libro;
+import libreria.servicios.LibroServicio;
 
 /**
  *
@@ -88,6 +89,21 @@ public class LibroDAO extends DAO<Libro> {
         return librosEncontrados;
     }
 
+    public Libro libroRepetido(String titulo) {
+        Libro librosEncontrados = new Libro();
+        try {
+            conectar();
+            
+            librosEncontrados = (Libro)em.createQuery("SELECT l FROM Libro l WHERE l.titulo LIKE :titulo")
+                    .setParameter("titulo", titulo).getSingleResult();
+            return librosEncontrados;
+        } catch (Exception e) {
+           
+            return  librosEncontrados = new Libro();
+        }
+
+    }
+
     public Collection<Libro> buscarPorISBN(Integer isbn) {
         conectar();
         List<Libro> librosEncontrados = (List<Libro>) em.createQuery("SELECT l FROM Libro l WHERE l. LIKE :isbn")
@@ -99,7 +115,7 @@ public class LibroDAO extends DAO<Libro> {
     public Collection<Libro> buscarPorEditorial(String editorial) {
         editorial = editorial.toLowerCase();
         conectar();
-        
+
         List<Libro> librosEncontrados = (List<Libro>) em.createQuery("SELECT l FROM Libro l WHERE l.editorial.nombre LIKE :editorial")
                 .setParameter("editorial", editorial).getResultList();
         desconectar();
