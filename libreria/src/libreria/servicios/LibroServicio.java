@@ -114,12 +114,14 @@ public class LibroServicio {
         libro.setEditorial(es.buscarPorId(libreria.Libreria.l.nextInt()));
         Libro libroValidacion = dao.libroRepetido(libro.getTitulo());
         if (libro.getTitulo().equalsIgnoreCase(libroValidacion.getTitulo())) {
-            System.out.println("ya existe un libro con el titulo "+ libro.getTitulo());
+            System.out.println("ya existe un libro con el titulo " + libro.getTitulo());
+        }else if(libro.getAutor() != null || libro.getEditorial() != null){
+           dao.guardar(libro);
+           System.out.println( libro.getTitulo()+ " guardado");
         }else{
-             dao.guardar(libro);
-             System.out.println( libro.getTitulo()+ " guardado");
+            System.out.println("el libro debe tener un autor y editorial");
+             
         }
-        
 
     }
 
@@ -261,52 +263,54 @@ public class LibroServicio {
             System.out.println("el valor ingresado es invalido");
         }
     }
-    public void buscarLibroPorEditorial(){
+
+    public void buscarLibroPorEditorial() {
         Collection<Libro> librosEncontrados = new ArrayList();
         boolean salir = false;
         String editorial;
-        do{
-        es.listarEditoriales();
-        System.out.println("Editorial del Libro :");
-        editorial = libreria.Libreria.l.next();
-        if (editorial.isEmpty()) {
-            System.out.println("debe ingresar una editorial");
-        }else if(dao.esNumerico(editorial) == true){
-            System.out.println("no se puede ingresar numeros o simbolos");
-        }else if (dao.buscarPorEditorial(editorial).isEmpty()){
-            System.out.println("no se encontraron libros con la editorial "+ editorial);
-        }else{
-          librosEncontrados =  dao.buscarPorEditorial(editorial);
-          salir =true;
-        }
-        }while(salir == false);
-        
-        System.out.println("libros encontrados con la editorial "+ editorial);
+        do {
+            es.listarEditoriales();
+            System.out.println("Editorial del Libro :");
+            editorial = libreria.Libreria.l.next();
+            if (editorial.isEmpty()) {
+                System.out.println("debe ingresar una editorial");
+            } else if (dao.esNumerico(editorial) == true) {
+                System.out.println("no se puede ingresar numeros o simbolos");
+            } else if (dao.buscarPorEditorial(editorial).isEmpty()) {
+                System.out.println("no se encontraron libros con la editorial " + editorial);
+            } else {
+                librosEncontrados = dao.buscarPorEditorial(editorial);
+                salir = true;
+            }
+        } while (salir == false);
+
+        System.out.println("libros encontrados con la editorial " + editorial);
         for (Libro libro : librosEncontrados) {
             System.out.println(libro.toString());
         }
     }
-     public void buscarLibroPorAutor(){
+
+    public void buscarLibroPorAutor() {
         Collection<Libro> librosEncontrados = new ArrayList();
         boolean salir = false;
         String autor;
-        do{
-        as.listarAutores();
-        System.out.println("Autor del Libro :");
-        autor = libreria.Libreria.l.next();
-        if (autor.isEmpty()) {
-            System.out.println("debe ingresar un autor");
-        }else if(dao.esNumerico(autor) == true){
-            System.out.println("no se puede ingresar numeros o simbolos");
-        }else if (dao.buscarPorAutor(autor).isEmpty()){
-            System.out.println("no se encontraron libros con el autor "+ autor);
-        }else{
-          librosEncontrados =  dao.buscarPorAutor(autor);
-          salir =true;
-        }
-        }while(salir == false);
-        
-        System.out.println("libros encontrados con el autor "+ autor);
+        do {
+            as.listarAutores();
+            System.out.println("Autor del Libro :");
+            autor = libreria.Libreria.l.next();
+            if (autor.isEmpty()) {
+                System.out.println("debe ingresar un autor");
+            } else if (dao.esNumerico(autor) == true) {
+                System.out.println("no se puede ingresar numeros o simbolos");
+            } else if (dao.buscarPorAutor(autor).isEmpty()) {
+                System.out.println("no se encontraron libros con el autor " + autor);
+            } else {
+                librosEncontrados = dao.buscarPorAutor(autor);
+                salir = true;
+            }
+        } while (salir == false);
+
+        System.out.println("libros encontrados con el autor " + autor);
         for (Libro libro : librosEncontrados) {
             System.out.println(libro.toString());
         }

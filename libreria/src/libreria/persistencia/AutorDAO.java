@@ -46,8 +46,11 @@ public class AutorDAO extends DAO<Autor> {
     }
 
     public Autor buscarPorId(Integer id) {
+       Autor autor = null;
+        try{
         conectar();
-        Autor autor = null;
+       
+        
 //        autor = em.find(Autor.class, id);
 
 //        String ID = String.valueOf(id);
@@ -56,8 +59,15 @@ public class AutorDAO extends DAO<Autor> {
 
 //        autor = (Autor) em.createQuery("SELECT a FROM Autor a WHERE a.id = "+id).getSingleResult();
         desconectar();
+       
         return autor;
-    }
+        }catch(javax.persistence.NoResultException e){
+            System.out.println("el autor no existe, crearlo desde el menu de Autores");
+            autor = null;
+            desconectar();
+            return autor;
+        }
+   }
 
     public Autor modificarNombre(Integer id, String nombre) {
 

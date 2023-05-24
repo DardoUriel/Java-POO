@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h3>Cargar Libro</h3>
+        </header>
+        <div>
+            <form action="/libro/registro" method="Post">
+
+                <div>
+                    <input type="number" name="ISBN" placeholder="ISBN">
+                </div>
+                <div>
+                    <input type="text" name="titulo" placeholder="Titulo del Libro">
+                </div>
+                <div>
+                    <input type="number" name="ejemplares" placeholder="Ejemplares">
+                </div>
+                <div>
+                    <select id="idAutor" name="idAutor">
+                        <option value="first">Seleccionar Autor</option>
+                        <option th:each="autor :${autores}"
+                                th:value="${autor.id}"
+                                th:text="${autor.nombre}"
+                                />
+                    </select>
+
+                </div>
+                <div>
+
+                    <select id="idEditorial" name="idEditorial">
+                        <option value="first">Seleccionar Editorial</option>
+                        <option th:each="editorial :${editoriales}"
+                                th:value="${editorial.id}"
+                                th:text="${editorial.nombre}"
+                                />
+                    </select>
+                </div>
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3 mendajeError">
+                    <div class="card-body">
+                        <h5 class="card-title">Error</h5>
+                        <p class="card-text" th:text="${error}" >text</p>
+                    </div>
+                </div>
+                <div th:if="${exito != null}" class="card text-white bg-danger mb-3 mendajeError">
+                    <div class="card-body">
+                        <h5 class="card-title">Exito</h5>
+                        <p class="card-text" th:text="${exito}" ></p>
+                    </div>
+                </div>
+
+                <button type="submit" >Guardar</button>
+
+            </form>
+
+        </div>
+    </body>
+</html>
