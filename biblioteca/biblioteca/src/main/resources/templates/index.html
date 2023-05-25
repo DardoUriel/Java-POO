@@ -3,17 +3,9 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html >
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>INDEX</title>
-    </head>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/fragments/head :: head"</head>
     <body>
-        <h1>PAGINA PRINCIPAL :))</h1>
-        <div>
-            <a href="/login">Ingresar</a>
-            <a href="/registrar">Registrarse</a>
-        </div>
+        <nav th:replace= "/fragments/navbar :: nav"</nav>
     </body>
 </html>

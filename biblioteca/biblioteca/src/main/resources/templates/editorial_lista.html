@@ -3,12 +3,8 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head th:replace= "/fragments/head :: head"</head>
     <body>
         <div>
             <table>
@@ -16,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <tr>
                         <th>Id de la Editorial</th>
                         <th>Nombre de la Editorial</th>
-                        <th>Acciones</th>
+                        <th sec:authorize="hasRole('ADMIN')">Acciones</th>
                     </tr>
                 </thead>
                 <tbody th:each="editorial :${editoriales}">
@@ -24,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <td th:text="${editorial.id}"></td>
                         <td th:text="${editorial.nombre}"></td>
                         <td>
-                            <a th:href="@{/editorial/modificar/__${editorial.id}__}">Modificar</a>
+                            <a sec:authorize="hasRole('ADMIN')" th:href="@{/editorial/modificar/__${editorial.id}__}">Modificar</a>
                         </td>
 
                     </tr>
